@@ -1,0 +1,65 @@
+import camion2.*
+import cosas2.*
+
+describe "Tests total de bultos" {
+	method initialize() {
+		bumblebee.estaComoAuto(false)
+		arena.peso(150)
+		bateriaAntiaerea.estaCargada(true)
+		paqueteLadrillos.cantidadLadrillos(80)
+		embalajeSeguridad.cosaEnvuelta(paqueteLadrillos)
+		camion.cargarVarios([bumblebee, arena, bateriaAntiaerea, embalajeSeguridad])
+	}
+	
+	test "Total de bultos" {
+		assert.equals(7, camion.totalBultos())
+	}
+}
+
+describe "Test consecuencias de la carga en cada cosa" {
+	
+	test "Test bumblebee" {
+		bumblebee.estaComoAuto(true)
+		
+		camion.cargar(bumblebee)
+		assert.notThat(bumblebee.estaComoAuto())
+	}
+	
+	test "Test paquete de ladrillos" {
+		paqueteLadrillos.cantidadLadrillos(10)
+		
+		camion.cargar(paqueteLadrillos)
+		assert.equals(22, paqueteLadrillos.cantidadLadrillos())
+	}
+	
+	test "Test arena a granel" {
+		arena.peso(10)
+		
+		camion.cargar(arena)
+		assert.equals(30, arena.peso())
+	}
+	
+	test "Test bateria antiaérea" {
+		bateriaAntiaerea.estaCargada(false)
+		
+		camion.cargar(bateriaAntiaerea)
+		assert.that(bateriaAntiaerea.estaCargada())
+	}
+	
+	test "Test contenedor" {
+		bumblebee.estaComoAuto(true)
+		paqueteLadrillos.cantidadLadrillos(10)
+		contenedor.meterCosas([paqueteLadrillos, bumblebee])
+		
+		camion.cargar(contenedor)
+		assert.notThat(bumblebee.estaComoAuto())
+		assert.equals(22, paqueteLadrillos.cantidadLadrillos())
+	}
+	
+	test "Test residuos radioactivos" {
+		residuosRadioactivos.peso(10)
+		
+		camion.cargar(residuosRadioactivos)
+		assert.equals(25, residuosRadioactivos.peso())
+	}
+}

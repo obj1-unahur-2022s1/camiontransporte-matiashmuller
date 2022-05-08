@@ -1,2 +1,45 @@
 import camion.*
 import cosas.*
+
+describe "Test de peso y peligrosidad para cada cosa" {
+	
+	test "Test paquete de ladrillos" {
+		paqueteLadrillos.cantidadLadrillos(10)
+		
+		assert.equals(2, paqueteLadrillos.nivelDePeligrosidad())
+		assert.equals(20, paqueteLadrillos.peso())
+	}
+	
+	test "Test bateria antiaérea" {
+		bateriaAntiaerea.estaCargada(true)
+		
+		assert.equals(100, bateriaAntiaerea.nivelDePeligrosidad())
+		assert.equals(300, bateriaAntiaerea.peso())
+		
+		bateriaAntiaerea.estaCargada(false)
+		
+		assert.equals(0, bateriaAntiaerea.nivelDePeligrosidad())
+		assert.equals(200, bateriaAntiaerea.peso())
+	}
+	
+	test "Test contenedor" {
+		contenedor.meterCosas([knightRider, bumblebee])
+		bumblebee.estaComoAuto(true)
+		
+		assert.equals(15, contenedor.nivelDePeligrosidad())
+		assert.equals(1400, contenedor.peso())
+		
+		contenedor.vaciar()
+		
+		assert.equals(0, contenedor.nivelDePeligrosidad())
+		assert.equals(100, contenedor.peso())
+	}
+	
+	test "Test embalaje" {
+		residuosRadioactivos.peso(30)
+		embalajeSeguridad.cosaEnvuelta(residuosRadioactivos)
+		
+		assert.equals(100, embalajeSeguridad.nivelDePeligrosidad())
+		assert.equals(residuosRadioactivos.peso(), embalajeSeguridad.peso())
+	}
+}
