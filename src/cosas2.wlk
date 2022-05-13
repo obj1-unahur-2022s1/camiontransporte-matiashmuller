@@ -1,4 +1,9 @@
+/*
+ * cosas2: Bien!. Solo detalles sobre inicialización de variables. 
+ */
+
 object knightRider {
+	/* Bien. */
 	method peso() = 500
 	method nivelDePeligrosidad() = 10
 	method cantidadComoBulto() = 1
@@ -6,6 +11,10 @@ object knightRider {
 }
 
 object bumblebee {
+	/* Bien. Acá había que inicializar la variable booleana estaComoAuto, porque el enunciado 
+	 * dice que el objeto tiene 2 estados, convertido en auto o robot. No estaría del todo correcto que 
+	 * nazca como null, pero es un detalle. 
+	 */
 	var property estaComoAuto
 	
 	method peso() = 800
@@ -15,6 +24,10 @@ object bumblebee {
 }
 
 object paqueteLadrillos{
+	/* Bien. Tal vez convenía inicializar en 0 cantidadLadrillos, ya que se rompería
+	 * la ejecución en caso de cargar un paqueteLadrillos vacío (sin ladrillos). No es un
+	 * error, solo una sugerencia que haría más robusto el código.
+	 */
 	var property cantidadLadrillos
 	
 	method peso() = cantidadLadrillos *2
@@ -27,6 +40,9 @@ object paqueteLadrillos{
 
 
 object arena {
+	/* Bien. Convendría también inicializar la variable peso, ya que si cargás una bolsa
+	 * de arena sin arena (podría ser un escenario válido) la ejecución se rompe. 
+	 * Igualmente es un detalle.*/
 	var property peso
 	
 	method nivelDePeligrosidad() = 1
@@ -35,6 +51,11 @@ object arena {
 }
 
 object bateriaAntiaerea {
+	/* Bien. Al igual que con bumblebee, se debía inicializar la variable estaCargada
+	 * ya que se rompería la ejecución si se intenta cargar sin setearle el valor. Solo por 
+	 * como está el enunciado, no es un error en esta instancia pero hay que tenerlo en cuenta
+	 * para los próximos.
+	*/
 	var property estaCargada
 
 	method peso() = if(estaCargada) {300} else {200}
@@ -44,6 +65,9 @@ object bateriaAntiaerea {
 }
 
 object contenedor {
+	/* Bien.  La lista de cosasContenidas podría ser una constante si siempre va a apuntar
+	 * a la misma lista que agregará cosas o la vaciará. Si nunca será apuntada esa referencia
+	 * a otra lista, entonces conviene que sea una constante. */
 	var cosasContenidas = []
 	
 	method meterCosas(cosas) = cosasContenidas.addAll(cosas)
@@ -58,6 +82,7 @@ object contenedor {
 }
 
 object residuosRadioactivos {
+	/* Bien. Convendría inicializar la variable peso */
 	var property peso
 	
 	method nivelDePeligrosidad() = 200
@@ -66,6 +91,7 @@ object residuosRadioactivos {
 }
 
 object embalajeSeguridad {
+	/* Bien. la variable cosaEnvuelta podría definirse como var property */
 	var cosaEnvuelta
 	
 	method cosaEnvuelta(cosa) { cosaEnvuelta = cosa}
